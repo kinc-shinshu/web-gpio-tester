@@ -1,26 +1,54 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import 'bulma';
 
+class Controller extends Component {
+  gpioOn = async () => {
+    const pinNumber = this.props.pinNumber;
+    const uri = `http://127.0.0.1:5000/gpio/${pinNumber}/out`
+    const result = await fetch(uri, {
+        method: "POST",
+        body: JSON.stringify({value: 1}),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(response => response.json());
+    console.log(result);
+  };
+
+  gpioOff = async () => {
+    const pinNumber = this.props.pinNumber;
+    const uri = `http://127.0.0.1:5000/gpio/${pinNumber}/out`
+    const result = await fetch(uri, {
+        method: "POST",
+        body: JSON.stringify({value: 0}),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(response => response.json());
+    console.log(result);
+  };
+
+  render() {
+    return (
+      <section className="hero is-light">
+        <div className="hero-body">
+          <h1 className="title">GPIO {this.props.pinNumber}</h1>
+          <button className="button" onClick={this.gpioOn}>ON</button>
+          <button className="button" onClick={this.gpioOFF}>OFF</button>
+        </div>
+      </section>
+    );
+  }
+}
+
 class App extends Component {
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="container">
+          <Controller pinNumber="21" />
+        </div>
       </div>
     );
   }
