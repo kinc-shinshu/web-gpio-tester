@@ -2,6 +2,9 @@ import RPi.GPIO as GPIO
 
 
 class GpioController:
+    def __init__(self):
+        self.setup(GPIO.BCM)
+        self.setup_pin_output_mode(26)
     # get mode
     def get_mode(self):
         return GPIO.getmode()
