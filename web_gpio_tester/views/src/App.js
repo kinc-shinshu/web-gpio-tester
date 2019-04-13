@@ -34,7 +34,7 @@ class Controller extends Component {
         <div className="hero-body">
           <h1 className="title">GPIO {this.props.pinNumber}</h1>
           <button className="button" onClick={this.gpioOn}>ON</button>
-          <button className="button" onClick={this.gpioOFF}>OFF</button>
+          <button className="button" onClick={this.gpioOff}>OFF</button>
         </div>
       </section>
     );
