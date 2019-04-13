@@ -6,9 +6,11 @@ class GpioController:
         self.setup(GPIO.BCM)
         self.setup_pin_output_mode(26)
     # get mode
+
     def get_mode(self):
         return GPIO.getmode()
     # set mode
+
     def setup(self, mode):
         self.cleanup_all_pin()
         GPIO.setmode(mode)
@@ -22,21 +24,25 @@ class GpioController:
 
     # analog output
     # pwmは途中で変更できるため、複数の関数からアクセスできるように変数を先に用意した
-    pwm_pin_or_pins = ""
+    pwm_pin_or_pins = {}
 
-    def setup_pin_pwm_mode(self, pin_number_or_list, frequency):
-        self.pwm_pin_or_pins = GPIO.PWM(pin_number_or_list, frequency)
+    def setup_pin_pwm_mode(self, pin_number, frequency):
+        GPIO.setup(pin_number, GPIO.OUT)
+        self.pwm_pin_or_pins[pin_number] = GPIO.PWM(pin_number, frequency)
 
-    def start_pwm(self, duty_ratio):
-        self.pwm_pin_or_pins.start(duty_ratio)
+    def start_pwm(self, pin_number, duty_ratio):
+        self.pwm_pin_or_pins[pin_number].start(duty_ratio)
 
-    def change_pwm_duty_ratio(self, duty_ratio):
-        self.pwm_pin_or_pins.ChangeFrequency(duty_ratio)
+    def change_pwm_duty_ratio(self, pin_number, duty_ratio):
+        self.pwm_pin_or_pins[pin_number].ChangeFrequency(duty_ratio)
 
-    def stop_pwn(self, pin_number_or_list):
-        self.pwm_pin_or_pins.stop(pin_number_or_list)
+    def stop_pwm(self, pin_number):
+        self.pwm_pin_or_pins[pin_number].stop()
 
     # input
+    def setup_pin_in_mode(self, pin_number_or_list):
+        GPIO.setup(pin_number_or_list, GPIO.IN)
+
     def read_pin_input(self, pin_number_or_list):
         pin_input = GPIO.input(pin_number_or_list)
         return pin_input
