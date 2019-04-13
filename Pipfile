@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 flask = "*"
+flask-cors = "*"
 
 [dev-packages]
 rpi = {git = "https://github.com/nosix/raspberry-gpio-emulator"}

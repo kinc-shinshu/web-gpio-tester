@@ -1,11 +1,13 @@
 from os import path
 from flask import *
+from flask_cors import CORS
 from gpio_controller import GpioController
 
 
 build_path = path.abspath('./views/build/')
 static_path = path.abspath('./views/build/static/')
 app = Flask(__name__, static_folder=static_path, template_folder=build_path)
+CORS(app)
 
 controller = GpioController()
 
