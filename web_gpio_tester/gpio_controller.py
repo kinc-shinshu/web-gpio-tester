@@ -2,8 +2,12 @@ import RPi.GPIO as GPIO
 
 
 class GpioController:
+    # get mode
+    def get_mode(self):
+        return GPIO.getmode()
     # set mode
-    def gpio_setup(self, mode):
+    def setup(self, mode):
+        self.cleanup_all_pin()
         GPIO.setmode(mode)
 
     # digital output
@@ -11,7 +15,7 @@ class GpioController:
         GPIO.setup(pin_number_or_list, GPIO.OUT)
 
     def set_output(self, pin_number_or_list, output):
-        GPIO.OUT(pin_number_or_list, output)
+        GPIO.output(pin_number_or_list, output)
 
     # analog output
     # pwmは途中で変更できるため、複数の関数からアクセスできるように変数を先に用意した
