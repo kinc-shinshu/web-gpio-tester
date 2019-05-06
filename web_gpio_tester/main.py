@@ -62,4 +62,4 @@ def gpio_pwm_stop(pin_number):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='8.8.8.8')
