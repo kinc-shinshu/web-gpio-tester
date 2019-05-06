@@ -11,6 +11,13 @@ flask-cors = "*"
 rpi = {git = "https://github.com/nosix/raspberry-gpio-emulator"}
 "autopep8" = "*"
 "flake8" = "*"
+invoke = "*"
 
 [requires]
 python_version = "3.6"
+
+[scripts]
+start = "invoke start"
+lint = "invoke lint"
+fix = "invoke fix"
+build = "invoke build"
